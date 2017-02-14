@@ -19,21 +19,20 @@
   * ### CSS：
 
     * 熟练掌握盒模型,熟悉行内，块级，flex 格式化以及浮动，定位布局
-    * 了解动画，渐变，2D，3D 变换
-    * 通读《CSS 权威指南》
 
-  * ### javaScript:
-<<<<<<< HEAD:resume.md
-    
+    * 了解动画，渐变，2D，3D 变换
+
+    * 通读《CSS 权威指南》
+   
+   * ### JavaScript
+
     * 熟练掌握调试技巧熟悉 DOM 原生 API
 
     * 理解高阶，闭包，原型等概念
 
     * 了解 AJAX，HTTP
-=======
   
-     * 熟练掌握调试技巧熟悉 DOM 原生 API
->>>>>>> 810b755ae3d8916f2fee2a339af26998eff73e4a:简历.md
+    * 熟练掌握调试技巧熟悉 DOM 原生 API
 
     * 理解高阶，闭包，原型等概念
 
@@ -44,11 +43,7 @@
     * [尝试实现了 JSONParse](http://shenxiaobai.coding.me/shenxiaobai/JsonParse.js)
 
     * [尝试实现一个简版的JSBin](http://shenxiaobai.coding.me/shenxiaobai/JSBin/JSBin.html)
-
-<<<<<<< HEAD:resume.md
-
-=======
->>>>>>> 810b755ae3d8916f2fee2a339af26998eff73e4a:简历.md
+    
   * ### 了解基础的编码方式
 
     * [尝试实现 base64 编码(支持中文)](http://shenxiaobai.coding.me/shenxiaobai/base64.js)
