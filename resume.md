@@ -26,6 +26,11 @@
    
    * ### JavaScript
 
+<<<<<<< HEAD
+=======
+  * ### javaScript:
+    
+>>>>>>> 73b5fc10f7b8d6f5b3c664e62a64f8cf093b6cd1
     * 熟练掌握调试技巧熟悉 DOM 原生 API
 
     * 理解高阶，闭包，原型等概念
@@ -43,7 +48,11 @@
     * [尝试实现了 JSONParse](http://shenxiaobai.coding.me/shenxiaobai/JsonParse.js)
 
     * [尝试实现一个简版的JSBin](http://shenxiaobai.coding.me/shenxiaobai/JSBin/JSBin.html)
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 73b5fc10f7b8d6f5b3c664e62a64f8cf093b6cd1
   * ### 了解基础的编码方式
 
     * [尝试实现 base64 编码(支持中文)](http://shenxiaobai.coding.me/shenxiaobai/base64.js)
