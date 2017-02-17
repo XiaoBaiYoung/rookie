@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>dictionary</title>
+  <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    li{
+      list-style:none;
+    }
+    body{
+      background-color: rgba(212,252,240,0.6);
+    }
+    i:hover{
+      cursor: pointer;
+    }
+    #app{
+      display: flex;
+      flex-direction: row;
+    }
+    .search{
+      width: 25vw;
+      height: 100vh;
+      background-image: url(http://cdn.duitang.com/uploads/blog/201312/12/20131212001525_tnuTm.thumb.600_0.jpeg);
+    }
+    .search input{
+      width: 25vw;
+      height: 50px;
+      font-size: 2rem;
+      color: rgba(224,224,224);
+    }
+    .search ul{
+      background-color: rgba(232,232,232,0.8);
+    }
+    .search ul li{
+      height: 5vh;
+      text-indent: 1em;
+    }
+    .search ul li:hover{
+      background-color: lightblue;
+    }
+    .content{
+      width: 50vw;
+      height: 100vh;
+      flex-direction: column;
+      overflow: scroll;
+    }
+    .title{
+      font-size: 30px;
+      margin-left: 1em;
+    }
+    .symbol{
+      margin-left: 3em;
+    }
+    .explain{
+      margin:20px;
+    }
+    .explain>div>p{
+      font-size: 25px;
+    }
+    .explain div div p{
+      margin-top: 20px;
+      font-size: 20px;
+    }
+    .historyWord{
+      background-image: url(http://cdn.duitang.com/uploads/blog/201312/12/20131212001525_tnuTm.thumb.600_0.jpeg);
+      height: 100vh;
+      width: 25vw;
+      overflow: scroll;
+    }
+    .historyWord h2{
+      text-align: center;
+    }
+    .historyWord ul li{
+      text-align: center;
+      font-size: 20px;
+      color: rgb(128,128,128);
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="search">
+      <input type="text" autofocus="autofocus" @keyup="searchText" v-model="text">
+      <ul class="similarList">
+        <li v-for="item in similar" @click="choose">{{item['searchtext']}}</li>
+      </ul>
+    </div>
+    <div class="content">
+      <div v-for="contentitem in contentText">
+        <div class="title"><p>{{contentitem['headword']}}</p></div>
+        <div v-for="contentprons in contentitem['prons']" class="symbol">
+          <span>{{contentprons['text']}}</span>
+          <i class="fa fa-volume-up" aria-hidden="true" @click="playaudio"><audio :src="contentprons['ogg']"></audio></i>
+        </div>
+        <div v-for="contentsenses in contentitem['senses']" class="explain">
+          <div v-for="contentdefs in contentsenses['defs']">
+            <p>
+            <span>{{contentdefs['defEn']}}</span>  <b><span>{{contentdefs['defCn']}}</span></b>
+            </p>
+            <div v-for="contentexamples in contentdefs['examples']">
+              <p>
+                <span>{{contentexamples['en']}}</span>
+                <span>{{contentexamples['cn']}}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      
+    <div class="historyWord">
+      <h2>History</h2>
+      <ul>
+        <li v-for="history in historys">
+          <span>{{history}}</span>
+          <i class="fa fa-times" aria-hidden="true" @click="delect"></i>
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="vue.js"></script>
+<script type="text/javascript">
+  function ajax(url) {
+    return new Promise(function(resolve, reject){
+      var xml = new XMLHttpRequest();
+      xml.open('get',url,true);
+      xml.onload = function (event) {
+        if (this.status === 200) {
+          result = JSON.parse(this.responseText)
+          resolve(result)
+        }
+      };
+      xml.onerror = reject;
+      xml.send();
+    } )
+  }
+
+  var vm = new Vue({
+    el:'#app',
+    data:{
+      text:'',
+      similar:'',
+      count:-1,
+      contentText:'',
+      historys:JSON.parse(localStorage.historys || '[]')
+    },
+    watch:{
+      historys:function(){
+        return localStorage.historys = JSON.stringify(this.historys)
+      }
+    },
+    methods:{
+      searchText(event){
+        if (event.keyCode == 13) {
+          ajax(`http://damiao.io:5000/word/${this.text}`).then(function(data){
+              vm.$data.contentText = data
+              if (vm.$data.historys.every(it => 
+                vm.text != it)) {
+                vm.$data.historys.push(vm.text)
+            }
+            vm.similar=''
+          })
+        }else if(event.keyCode == 40){
+          if (vm.count > vm.similar.length - 2 ) {
+            vm.count = 0
+            vm.text = vm.similar[vm.count]['searchtext']
+          }else{
+            vm.count++
+            vm.text = vm.similar[vm.count]['searchtext']
+          }
+        }else if(event.keyCode == 38){
+          if (vm.count < 1 ) {
+            vm.count = vm.similar.length - 1
+            vm.text = vm.similar[vm.count]['searchtext']
+          }else{
+            vm.count--
+            vm.text = vm.similar[vm.count]['searchtext']
+          }
+        }else{
+          ajax(`http://damiao.io:5000/autocomplete/${this.text}`).then(function(data){
+                    vm.$data.similar = data['results']
+                  })
+        }
+      },
+      playaudio(event){
+        return event.target.childNodes[0].play()
+      },
+      delect(event){
+        var val = event.target.parentNode.childNodes[0].textContent
+          for (var i = 0; i < vm.historys.length; i++) {
+            if(val == vm.historys[i]){
+              vm.historys.splice(i , 1)
+              i--
+            }
+          }
+      },
+      choose(event){
+        return vm.text = event.target.textContent
+      }
+    },
+    computed:{
+      
+    }
+  })
+</script>
+</html>
