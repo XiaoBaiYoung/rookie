@@ -55,3 +55,8 @@
 ### 了解 Vue.js 框架的使用
 
 ### 了解部分 Node 模块的使用
+
+### 一些项目
+
+[英语词典](http://shenxiaobai.coding.me/shenxiaobai/dictionary.html)
+[别踩白块游戏](http://shenxiaobai.coding.me/shenxiaobai/%E5%88%AB%E8%B8%A9%E7%99%BD%E5%9D%97.html)
