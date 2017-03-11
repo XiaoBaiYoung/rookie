@@ -26,13 +26,7 @@
    
 ### javaScript:
     
-熟练掌握调试技巧熟悉 DOM 原生 API
-
-理解高阶，闭包，原型等概念
-
-了解 AJAX，HTTP
-  
-熟练掌握调试技巧熟悉 DOM 原生 API
+熟练掌握调试技巧
 
 理解高阶，闭包，原型等概念
 
@@ -60,3 +54,4 @@
 
 [英语词典](http://shenxiaobai.coding.me/shenxiaobai/dictionary.html)
 [别踩白块游戏](http://shenxiaobai.coding.me/shenxiaobai/%E5%88%AB%E8%B8%A9%E7%99%BD%E5%9D%97.html)
+[canvas时钟](http://shenxiaobai.coding.me/shenxiaobai/canvas/canvasTime.html)
